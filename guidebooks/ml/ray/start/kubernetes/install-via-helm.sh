@@ -23,3 +23,6 @@ helm --kube-context ${KUBE_CONTEXT} -n ${KUBE_NS} \
      --set operatorImage=${RAY_OPERATOR_IMAGE} \
      --set namespacedOperator=true \
      --set operatorNamespace=${KUBE_NS}
+     --set tensorboard.enable=${HELM_ENABLE_TENSORBOARD}
+     --set tensorboard.path=${TB_LOGDIR}
+     --set tensorboard.secret=${HELM_TENSORBOARD_SECRET}

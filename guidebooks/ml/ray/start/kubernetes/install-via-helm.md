@@ -1,5 +1,12 @@
 ## Install Ray in Kubernetes via Helm
 
+
+Set the variable for helm chart to enable tensorflow since s3 storage exists
+```shell
+if  [ -n "${LOGDIR_URI}" ] && [ -n "${HELM_TENSORBOARD_SECRET}" ] export HELM_ENABLE_TENSORBOARD=true fi
+```
+
+
 ```shell
 ---
 validate: |
