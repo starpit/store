@@ -10,5 +10,3 @@ imports:
 # JupyterLab on a Kubernetes cluster
 
 A JupyterLab server will run on a Kubernetes cluster
-
---8<-- "../util/working-directory.md"

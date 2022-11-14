@@ -33,10 +33,10 @@ done
 echo
 
 # This trick is used because 'kubectl cp <source>/* <pod>:<dest>' doesn't work for me
-kubectl exec ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} $JUPYTERLAB_POD -- mkdir -p /home/ray/work
-tar -zcvf .work.tar -C $CUSTOM_WORKING_DIR .
-kubectl cp ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} .work.tar $JUPYTERLAB_POD:/home/ray/work
-kubectl exec ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} $JUPYTERLAB_POD -- bash -c -- "tar -xvf /home/ray/work/.work.tar -C /home/ray/work; rm /home/ray/work/.work.tar"
+# kubectl exec ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} $JUPYTERLAB_POD -- mkdir -p /home/ray/work
+# tar -zcvf .work.tar -C $CUSTOM_WORKING_DIR .
+# kubectl cp ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} .work.tar $JUPYTERLAB_POD:/home/ray/work
+# kubectl exec ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} $JUPYTERLAB_POD -- bash -c -- "tar -xvf /home/ray/work/.work.tar -C /home/ray/work; rm /home/ray/work/.work.tar"
 ```
 
 ```shell
@@ -71,9 +71,9 @@ kubectl exec ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} -it $JUPYTERLAB_POD -- jupyter-l
 
 ```shell
 # This trick is used because 'kubectl cp <pod>:<source>/* <dest>' doesn't work for me
-kubectl exec ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} $JUPYTERLAB_POD -- tar -zcvf .work.tar -C /home/ray/work .
-kubectl cp ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} $JUPYTERLAB_POD:/home/ray/.work.tar $CUSTOM_WORKING_DIR/.work.tar
-kubectl exec ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} $JUPYTERLAB_POD -- rm /home/ray/.work.tar
-tar -xvf $CUSTOM_WORKING_DIR/.work.tar -C $CUSTOM_WORKING_DIR .
-rm $CUSTOM_WORKING_DIR/.work.tar
+#kubectl exec ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} $JUPYTERLAB_POD -- tar -zcvf .work.tar -C /home/ray/work .
+#kubectl cp ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} $JUPYTERLAB_POD:/home/ray/.work.tar $CUSTOM_WORKING_DIR/.work.tar
+#kubectl exec ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} $JUPYTERLAB_POD -- rm /home/ray/.work.tar
+#tar -xvf $CUSTOM_WORKING_DIR/.work.tar -C $CUSTOM_WORKING_DIR .
+#rm $CUSTOM_WORKING_DIR/.work.tar
 ```
