@@ -5,7 +5,7 @@ A Kubernetes
 defines access to a cluster as a particular user.
 
 ```shell
-kubectl=$(which /usr/local/bin/kubectl/$(uname)/$(uname -m))
+kubectl=$(which kubectl)
 
 ($kubectl config get-contexts -o name | grep -E . >& /dev/null && $kubectl config get-contexts -o name) \
     || ($kubectl version | grep Server >& /dev/null && echo "${KUBE_CONTEXT_FOR_TEST-In-cluster}" || exit 1)

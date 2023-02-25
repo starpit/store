@@ -18,7 +18,7 @@ etc).
 > bring.
 
 ```shell
-kubectl=$(which /usr/local/bin/kubectl/$(uname)/$(uname -m))
+kubectl=$(which kubectl)
 context="$(oneof /sys/compute/kubernetes/context)"
 
 X=$([ -n "$KUBE_NS_FOR_TEST" ] && echo $KUBE_NS_FOR_TEST || $kubectl get --context $context ns -o name || oc --context $context get projects -o name)
