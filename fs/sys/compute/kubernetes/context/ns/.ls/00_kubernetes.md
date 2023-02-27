@@ -21,8 +21,11 @@ etc).
 kubectl=$(which kubectl)
 context="$(oneof /sys/compute/kubernetes/context)"
 
-X=$([ -n "$KUBE_NS_FOR_TEST" ] && echo $KUBE_NS_FOR_TEST || $kubectl get --context $context ns -o name || oc --context $context get projects -o name)
+# allow tests to inject a desired namespace
+# otherwise, use `kubectl get ns`, falling back on `oc get projects`
+X=${KUBE_NS_FOR_TEST-$(kubectl get --context $context ns -o name || oc --context $context get projects -o name)}
 
+# try to filter out system namespaces
 echo "$X" \
     | sed -E 's#(namespace|project\.project\.openshift\.io)/##' \
     | grep -Ev 'calico-system|tigera-operator|openshift|kube-'
