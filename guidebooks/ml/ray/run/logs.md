@@ -1,6 +1,7 @@
 ---
 imports:
-    - util/websocat
+    - ml/ray/start/kubernetes/label-selectors
+    - ml/ray/cluster/head
 ---
 
 # Stream out Ray Job Logs
@@ -59,6 +60,10 @@ consuming streaming output from that file "batchy". Instead, we use
 Ray API; for log following, this is a websocket protocol, hence the
 need for an additional tool. Sigh.
 
-### Logs to a file (and possibly the console, too)
+### Stream out Job Logs
 
---8<-- "./logs/via-websocat.md"
+```shell
+set -x
+stdbuf -o0 -e0 kubectl logs ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} ${RAY_HEAD_POD} -f
+#kubectl exec ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} ${RAY_HEAD_POD} -- kubectl logs -l ${KUBE_POD_RAY_HEAD_LABEL_SELECTOR} -f
+```
