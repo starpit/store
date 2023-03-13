@@ -14,6 +14,8 @@
 # minimum viability for that gang cannot currently be achieved.
 # https://github.com/kubernetes-sigs/scheduler-plugins/blob/master/pkg/coscheduling/README.md
 
+{{- $root := . -}}
+
 {{- if .Values.rollYourOwn }}
 {{ .Values.rollYourOwn -}}
 
@@ -38,10 +40,13 @@ spec:
       completionstatus: "Complete,Failed"
       generictemplate:
 {{ include "head-deployment" . | indent 8 }}
+
+{{- range $k, $workerIndex := until (int ($root.Values.podTypes.rayWorkerType.maxWorkers | default 1)) }}
     - replicas: 1
-      completionstatus: "Complete,Failed"
+      completionstatus: "Successful,Failed"
       generictemplate:
-{{ include "worker-deployment" . | indent 8 }}
+{{ include "worker-deployment" (merge (dict "workerName" (trunc 63 (print "ray-worker-" $.Values.clusterName "-" $workerIndex))) $root) | indent 8 }}
+{{- end }}
 
 {{ if eq .Values.mcad.scheduler "coscheduler" }}
     - replicas: 1

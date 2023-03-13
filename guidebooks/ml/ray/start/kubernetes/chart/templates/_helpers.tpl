@@ -7,7 +7,7 @@
 {{- end }}
 
 {{- define "ray.workers" -}}
-{{- trunc 63 (print "ray-worker-" .Values.clusterName) -}}
+{{- trunc 58 (print "ray-worker-" .Values.clusterName) -}}
 {{- end }}
 
 {{- define "ray.headService" -}}
