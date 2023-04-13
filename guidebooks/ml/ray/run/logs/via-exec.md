@@ -2,11 +2,11 @@
 
 Here, we use `kubectl exec` to stream out Ray job logs.
 
-```shell.stdin
+```shell
 # Stream out Ray Logs
 
-kubectl exec ${RAY_HEAD_POD} ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} -it \
-    -- ray job logs -f ${JOB_ID} \
+kubectl exec ${RAY_HEAD_POD} ${KUBE_CONTEXT_ARG} ${KUBE_NS_ARG} \
+    -- tail -F /tmp/joblogs.txt \
     | tee "${STREAMCONSUMER_LOGS}job.txt"
 ```
 
